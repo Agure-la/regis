@@ -37,6 +37,19 @@ public class RegistrationResourceTest {
                 .header("location", "http://localhost:8081/registration/1");
     }
 
+
+    @Test
+    @Order(2)
+    public void shouldFindUserByUsername(){
+        given()
+                .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON)
+                .when()
+                .get("/registration/{username}", "Alex")
+                .then()
+                .statusCode(200)
+                .body("username", is("Alex"))
+                .body("password", notNullValue());
+    }
     @Test
     @Order(2)
     public void shouldFindUserByUsername(){
